@@ -1,9 +1,9 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { GachaStats, Rarity, PullResult } from './types';
-import { GachaEngine } from './services/gachaEngine';
-import GachaItem from './components/GachaItem';
-import StatsBoard from './components/StatsBoard';
+import { GachaEngine } from './GachaEngine';
+import GachaItem from './GachaItem';
+import StatsBoard from './StatsBoard';
 
 const App: React.FC = () => {
   const [resetKey, setResetKey] = useState(0);
@@ -40,13 +40,12 @@ const App: React.FC = () => {
         return nextStats;
       });
     }, 150);
-  }, [isPulling, stats]);
+  }, [isPulling]);
 
   const resetSimulator = useCallback(() => {
     if (window.confirm("CRITICAL: Initialize system wipe? All headhunting history and pity will be erased.")) {
       if (pullTimerRef.current) window.clearTimeout(pullTimerRef.current);
       
-      // Reset all states
       setStats({
         totalPulls: 0,
         sixStarPity: 0,
@@ -61,7 +60,7 @@ const App: React.FC = () => {
       });
       setCurrentResults([]);
       setIsPulling(false);
-      // Increment reset key to force unmount/remount of results area
+      // Increment reset key to force a full re-render of results area
       setResetKey(prev => prev + 1);
     }
   }, []);
@@ -101,8 +100,8 @@ const App: React.FC = () => {
               <span className="text-[10rem] md:text-[20rem] font-black font-orbitron rotate-[-15deg] whitespace-nowrap">END-SYS</span>
             </div>
 
-            {/* Results Grid - Stable area */}
-            <div className="relative z-10 w-full flex justify-center items-center h-full">
+            {/* Results Grid - Stable area with unique key for reset */}
+            <div className="relative z-10 w-full flex justify-center items-center h-full" key={resetKey + '_results'}>
               {currentResults.length > 0 ? (
                 <div className="flex flex-row items-center justify-center gap-1.5 md:gap-3 lg:gap-4 py-8 overflow-x-auto no-scrollbar max-w-full px-4 scroll-smooth">
                   {currentResults.map((res, idx) => (
