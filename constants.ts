@@ -28,11 +28,11 @@ export const CHARACTERS: Character[] = [
   { id: '6-s5', name: 'Ardelia', rarity: Rarity.SIX_STAR, type: 'standard' },
 
   // 6 Stars Featured
-  { id: '6-f1', name: 'Gilberta', rarity: Rarity.SIX_STAR, type: 'featured' },
+  { id: '6-f1', name: 'Laevatain', rarity: Rarity.SIX_STAR, type: 'featured' },
 
   // 6 Stars Old Rate Up
   { id: '6-o1', name: 'Yvonne', rarity: Rarity.SIX_STAR, type: 'old-rate-up' },
-  { id: '6-o2', name: 'Laevatain', rarity: Rarity.SIX_STAR, type: 'old-rate-up' },
+  { id: '6-o2', name: 'Gilberta', rarity: Rarity.SIX_STAR, type: 'old-rate-up' },
 ];
 
 export const GACHA_CONFIG = {
